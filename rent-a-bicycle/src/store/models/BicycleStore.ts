@@ -1,8 +1,9 @@
 import { Instance, applySnapshot, flow, types } from "mobx-state-tree";
 import { Bicycle } from "./Bicycle";
-import { User } from "./User";
 import BicyclesAPI from "../../api/BicyclesAPI";
-import UsersAPI from "../../api/UsersAPI";
+import { User } from "./User";
+import userService from "../../api/UsersAPI";
+import bicycleService from "../../api/BicyclesAPI";
 
 export const BicycleStore = types.model({
     bicycles: types.array(Bicycle),
@@ -30,26 +31,27 @@ export const BicycleStore = types.model({
         }
     }))
     .actions(self => ({
-        loadBicycles: flow(function* () {
-            try {
-                // const bicycles = yield* BicyclesAPI.fetchBicycles();
-                const response = yield fetch('./bicycles.json');
-                const bicycles = yield response.json();
-                applySnapshot(self.bicycles, bicycles);
-            } catch (error) {
-                console.error("Failed to load bicycles:", error);
-            }
-        }),
-        loadUsers: flow(function* () {
-            try {
-                // const users = yield* UsersAPI.fetchUsers();
-                const response = yield fetch('./users.json');
-                const users = yield response.json();
-                applySnapshot(self.users, users);
-            } catch (error) {
-                console.log("error", error);
-            }
+        fetchBicycles: flow(function* () {
+            yield bicycleService.fetchBicycles().then((bicycles: any) => {
+                try {
+                    if (bicycles) {
+                        applySnapshot(self.bicycles, bicycles);
+                    }
+                } catch (eror) {
 
+                }
+            })
+        }),
+        fetchUsers: flow(function* () {
+            yield userService.fetchUsers().then((users: any) => {
+                try {
+                    if (users) {
+                        applySnapshot(self.users, users)
+                    }
+                } catch (error) {
+
+                }
+            })
         }),
         turnAllLightsOff() {
             const turnedOffBicycles = self.bicycles.map(bicycle => ({

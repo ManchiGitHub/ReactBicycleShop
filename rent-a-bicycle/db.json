@@ -1,0 +1,177 @@
+{
+    "bicycles": [
+        {
+            "id": 1,
+            "lights": true,
+            "status": "busy",
+            "location": "Israel",
+            "ip": "0.0.0.1"
+        },
+        {
+            "id": 2,
+            "lights": false,
+            "status": "busy",
+            "location": "Israel",
+            "ip": "0.0.0.1"
+        },
+        {
+            "id": 3,
+            "lights": true,
+            "status": "free",
+            "location": "Israel",
+            "ip": "0.0.0.1"
+        },
+        {
+            "id": 4,
+            "lights": false,
+            "status": "busy",
+            "location": "Israel",
+            "ip": "0.0.0.1"
+        },
+        {
+            "id": 5,
+            "lights": true,
+            "status": "free",
+            "location": "Israel",
+            "ip": "0.0.0.1"
+        },
+        {
+            "id": 6,
+            "lights": false,
+            "status": "broken",
+            "location": "Israel",
+            "ip": "0.0.0.1"
+        },
+        {
+            "id": 7,
+            "lights": false,
+            "status": "busy",
+            "location": "Israel",
+            "ip": "0.0.0.1"
+        },
+        {
+            "id": 8,
+            "lights": true,
+            "status": "free",
+            "location": "Israel",
+            "ip": "0.0.0.1"
+        },
+        {
+            "id": 9,
+            "lights": true,
+            "status": "broken",
+            "location": "Israel",
+            "ip": "0.0.0.1"
+        },
+        {
+            "id": 10,
+            "lights": false,
+            "status": "busy",
+            "location": "Israel",
+            "ip": "0.0.0.1"
+        },
+        {
+            "id": 11,
+            "lights": true,
+            "status": "free",
+            "location": "Israel",
+            "ip": "0.0.0.1"
+        },
+        {
+            "id": 12,
+            "lights": false,
+            "status": "busy",
+            "location": "Israel",
+            "ip": "0.0.0.1"
+        },
+        {
+            "id": 13,
+            "lights": true,
+            "status": "free",
+            "location": "Israel",
+            "ip": "0.0.0.1"
+        },
+        {
+            "id": 14,
+            "lights": true,
+            "status": "free",
+            "location": "Israel",
+            "ip": "0.0.0.1"
+        },
+        {
+            "id": 15,
+            "lights": true,
+            "status": "broken",
+            "location": "Israel",
+            "ip": "0.0.0.1"
+        },
+        {
+            "id": 16,
+            "lights": false,
+            "status": "free",
+            "location": "Israel",
+            "ip": "0.0.0.1"
+        },
+        {
+            "id": 17,
+            "lights": false,
+            "status": "busy",
+            "location": "Israel",
+            "ip": "0.0.0.1"
+        },
+        {
+            "id": 18,
+            "lights": true,
+            "status": "free",
+            "location": "Israel",
+            "ip": "0.0.0.1"
+        }
+    ],
+    "users":[
+        {
+            "id": 1,
+            "name": "Alice",
+            "funds": 200
+        },
+        {
+            "id": 2,
+            "name": "Bob",
+            "funds": 25
+        },
+        {
+            "id": 3,
+            "name": "Charlie",
+            "funds": 20
+        },
+        {
+            "id": 4,
+            "name": "Diana",
+            "funds": 500
+        },
+        {
+            "id": 5,
+            "name": "Ethan",
+            "funds": 0
+        },
+        {
+            "id": 6,
+            "name": "Fiona",
+            "funds": 100
+        },
+        {
+            "id": 7,
+            "name": "George",
+            "funds": 80
+        },
+        {
+            "id": 8,
+            "name": "Diana",
+            "funds": 100
+        },
+        {
+            "id": 9,
+            "name": "Ethan",
+            "funds": 0
+        }
+    ]
+}

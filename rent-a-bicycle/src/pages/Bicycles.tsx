@@ -24,7 +24,6 @@ export const Bicycles = observer(() => {
 
     const navigate = useNavigate();
     const handleRowClick = (item: IBicycle) => {
-        console.log('Row clicked', item);
         navigate(`/bicycles/${item.id}`)
     };
 

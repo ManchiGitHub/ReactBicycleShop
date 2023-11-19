@@ -1,16 +1,37 @@
 import { IUser } from "../store/models/User";
 
-const UsersAPI = {
-    fetchUsers: function* (): Generator<Promise<Response>, IUser[], any> {
-        try {
-            const response = yield fetch('./users.json') as Promise<Response>;
-            const users: IUser[] = (yield response.json()) as IUser[];
-            return users;
-        } catch (error) {
-            console.error("Error fetching users:", error);
-            throw error;
-        }
+const fetchUsers = async () => {
+    try {
+        const response = await fetch('http://localhost:3000/bicycles');
+        const users = await response.json();
+        console.log("server returned users", users);
+        return users;
+    } catch (error) {
+        console.log("error", error)
     }
-};
+}
 
-export default UsersAPI;
+interface UserDTO {
+    id: number,
+    name: string,
+    funds: number
+}
+
+const fetchUser = async (id: string) => {
+    try {
+        const response = await fetch('http://localhost:3000/bicycles');
+        const users: UserDTO[] = await response.json();
+        const user = users.find(user => user.id.toString() === id);
+        console.log("server returned user", user);
+        return user;
+    } catch (error) {
+        console.log("error", error)
+    }
+}
+
+const userService = {
+    fetchUser, fetchUsers
+}
+
+export default userService;
+export type { };

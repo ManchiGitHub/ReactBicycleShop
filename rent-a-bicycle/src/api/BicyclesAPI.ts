@@ -1,16 +1,21 @@
 import { IBicycle } from "../store/models/Bicycle";
 
-const BicyclesAPI = {
-    fetchBicycles: function* (): Generator<Promise<Response>, IBicycle[], any> {
-        try {
-            const response = yield fetch('./bicycles.json') as Promise<Response>;
-            const bicycles: IBicycle[] = (yield response.json()) as IBicycle[];
-            return bicycles;
-        } catch (error) {
-            console.log(error);
-            throw error;
-        }
+const fetchBicycles = async () => {
+    try {
+        const response = await fetch('http://localhost:3000/bicycles');
+        console.log("server returned response", response.ok)
+        const bicycles: IBicycle[] = await response.json()
+        console.log("server returned bicycles", bicycles)
+        return bicycles;
+    } catch (error) {
+        console.log("error:", error)
+        throw error;
     }
-};
+}
 
-export default BicyclesAPI;
+const bicycleService = {
+    fetchBicycles
+}
+
+export default bicycleService;
+export type {};

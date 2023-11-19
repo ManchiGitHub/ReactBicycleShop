@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useId, useLayoutEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { userRootStore } from '../store/common/RootStoreContext';
 import { Input, initTE, Button } from "tw-elements";
@@ -10,19 +10,21 @@ const defaultUser = {
   funds: 0,
 };
 
-const User: React.FC = observer(() => {
+const UserPage: React.FC = observer(() => {
   const params = useParams<{ userId: string }>();
   const userId = params.userId;
-  const { bicycleStore } = userRootStore()
+  const { currentUser } = userRootStore();
   const [user, setUser] = useState(defaultUser);
   const [amount, setAmount] = useState(0);
 
   useEffect(() => {
     if (userId) {
-      const foundUser = bicycleStore.users.find(user => user.id.toString() === userId);
-      setUser(foundUser || defaultUser);
+      // const foundUser = bicycleStore.users.find(user => user.id.toString() === userId);
+      currentUser.loadUser(userId);
+      setUser(currentUser);
     }
   }, [userId]);
+
 
   if (!user) {
     return <div>Loading or user not found...</div>;
@@ -51,4 +53,4 @@ const User: React.FC = observer(() => {
   );
 });
 
-export default User;
+export default UserPage;

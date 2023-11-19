@@ -13,15 +13,20 @@ const App = () => {
     () => RootStore.create({
       bicycleStore: {
         bicycles: [],
-        navigationTitle: ''
+        navigationTitle: '',
+      },
+      currentUser: {
+        name: '',
+        funds: 0,
+        id: 0
       }
     }),
     []
   );
 
   useEffect(() => {
-    rootStore.bicycleStore.loadBicycles();
-    rootStore.bicycleStore.loadUsers();
+    rootStore.bicycleStore.fetchBicycles();
+    rootStore.bicycleStore.fetchUsers();
   }, []);
 
   return (
