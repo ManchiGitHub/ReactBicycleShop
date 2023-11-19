@@ -12,6 +12,8 @@ import { IBicycle } from "../store/models/Bicycle";
 import { ActionDropDown } from "../components/DropDownActions";
 import { Searchbar } from "../components/Searchbar";
 import { BicycleList } from "../components/BicycleList";
+import { IUser } from "../store/models/User";
+import { UserList } from "../components/UserList";
 
 export const Users = observer(() => {
 
@@ -23,9 +25,9 @@ export const Users = observer(() => {
     const { bicycleStore } = userRootStore();
     const navigate = useNavigate();
 
-    const handleRowClick = (item: IBicycle) => {
-        console.log('Row clicked', item);
-        navigate(`/bicycles/${item.id}`)
+    const handleRowClick = (user: IUser) => {
+        console.log('Row clicked', user);
+        navigate(`/users/${user.id}`)
     };
 
     const [searchTerm, setSearchTerm] = useState('');
@@ -49,13 +51,13 @@ export const Users = observer(() => {
     return (
         <>
             <div className="flex">
-                <ActionDropDown actions={userActions} />
                 <Searchbar
+                    hintText="Search users"
                     handleInputChangeEvent={handleInputChange} />
             </div>
-            <BicycleList
+            <UserList
                 handleRowClick={handleRowClick}
-                bicycles={bicycleStore.filteredBicycles} />
+                users={bicycleStore.users} />
         </>
     )
 });

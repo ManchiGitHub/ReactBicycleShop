@@ -49,7 +49,7 @@ export const Bicycles = observer(() => {
         <>
             <div className="flex">
                 <ActionDropDown actions={bicycleActions} />
-                <Searchbar handleInputChangeEvent={handleSearchKeyChange} />
+                <Searchbar hintText="Search bicycles by state" handleInputChangeEvent={handleSearchKeyChange} />
             </div>
             <BicycleList handleRowClick={handleRowClick} bicycles={bicycleStore.filteredBicycles} />
         </>

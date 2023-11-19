@@ -1,5 +1,5 @@
 import { Instance, types } from "mobx-state-tree";
-import { BicycleStore } from "./models/Bicycle";
+import { BicycleStore } from "./models/BicycleStore";
 
 const RootStore = types.model("RootStore", {
     bicycleStore: BicycleStore,

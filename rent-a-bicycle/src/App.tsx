@@ -21,7 +21,12 @@ const App = () => {
 
   useEffect(() => {
     rootStore.bicycleStore.loadBicycles();
-}, []);
+  }, []);
+
+  useEffect(() => {
+    rootStore.bicycleStore.loadUsers();
+  }, []);
+
 
   return (
     <div>
