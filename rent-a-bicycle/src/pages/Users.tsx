@@ -2,15 +2,10 @@ import { useEffect, useState } from "react";
 import { userRootStore } from "../store/common/RootStoreContext"
 import { observer } from "mobx-react-lite";
 import { useNavigate } from "react-router-dom";
-import {
-    Dropdown,
-    Ripple,
-    initTE,
-    Input
-} from "tw-elements";
 import { Searchbar } from "../components/Searchbar";
 import { IUser } from "../store/models/User";
 import { UserList } from "../components/UserList";
+import { Dropdown, Ripple, initTE, Input } from "tw-elements";
 
 export const Users = observer(() => {
 

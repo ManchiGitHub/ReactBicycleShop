@@ -1,6 +1,5 @@
 import { IUser } from "../store/models/User";
 
-
 const UsersAPI = {
     fetchUsers: function* (): Generator<Promise<Response>, IUser[], any> {
         try {

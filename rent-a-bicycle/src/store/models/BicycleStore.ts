@@ -32,7 +32,9 @@ export const BicycleStore = types.model({
     .actions(self => ({
         loadBicycles: flow(function* () {
             try {
-                const bicycles = yield* BicyclesAPI.fetchBicycles();
+                // const bicycles = yield* BicyclesAPI.fetchBicycles();
+                const response = yield fetch('./bicycles.json');
+                const bicycles = yield response.json();
                 applySnapshot(self.bicycles, bicycles);
             } catch (error) {
                 console.error("Failed to load bicycles:", error);
@@ -40,7 +42,9 @@ export const BicycleStore = types.model({
         }),
         loadUsers: flow(function* () {
             try {
-                const users = yield* UsersAPI.fetchUsers();
+                // const users = yield* UsersAPI.fetchUsers();
+                const response = yield fetch('./users.json');
+                const users = yield response.json();
                 applySnapshot(self.users, users);
             } catch (error) {
                 console.log("error", error);

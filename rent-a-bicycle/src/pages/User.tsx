@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { userRootStore } from '../store/common/RootStoreContext';
-import {
-  Input,
-  initTE,
-  Button
-} from "tw-elements";
+import { Input, initTE, Button } from "tw-elements";
+import { observer } from 'mobx-react-lite';
 
 const defaultUser = {
   id: 0,
@@ -13,7 +10,7 @@ const defaultUser = {
   funds: 0,
 };
 
-const User: React.FC = () => {
+const User: React.FC = observer(() => {
   const params = useParams<{ userId: string }>();
   const userId = params.userId;
   const { bicycleStore } = userRootStore()
@@ -25,7 +22,7 @@ const User: React.FC = () => {
       const foundUser = bicycleStore.users.find(user => user.id.toString() === userId);
       setUser(foundUser || defaultUser);
     }
-  }, [userId, bicycleStore.users]);
+  }, [userId]);
 
   if (!user) {
     return <div>Loading or user not found...</div>;
@@ -49,9 +46,9 @@ const User: React.FC = () => {
       <p>Name: {user.name}</p>
       <p>Funds: {user.funds}</p>
 
-      
+      {/* //TODO: input & button to capture funds input */}
     </div>
   );
-};
+});
 
 export default User;

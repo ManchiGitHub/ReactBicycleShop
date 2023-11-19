@@ -8,20 +8,10 @@ import {
 } from "tw-elements";
 import { userRootStore } from "../store/common/RootStoreContext";
 
-interface NavProps {
+export const NavigationBar: React.FC = observer(() => {
 
-}
-
-export const NavigationBar: React.FC<NavProps> = observer(() => {
-
-    const [isNavExpanded, setIsNavExpanded] = useState(false);
     const { bicycleStore } = userRootStore();
   
-
-    const toggleNav = () => {
-        setIsNavExpanded(!isNavExpanded);
-    };
-
     useEffect(() => {
         initTE({ Collapse, Ripple });
     }, []);
@@ -38,7 +28,7 @@ export const NavigationBar: React.FC<NavProps> = observer(() => {
                             data-te-collapse-init
                             data-te-target="#navbarSupportedContentY"
                             aria-controls="navbarSupportedContentY"
-                            aria-expanded={isNavExpanded}
+                            aria-expanded="false"
                             aria-label="Toggle navigation">
                             <span className="[&>svg]:w-5">
                                 <svg

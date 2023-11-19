@@ -1,11 +1,10 @@
+import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
-const Bicycle: React.FC = () => {
+const Bicycle: React.FC = observer(() => {
   const params = useParams();
-  const bicycleId = params.bicycleId; // This should match the dynamic segment in your route
-
-  // Fetch bicycle data using bicycleId or any other logic you need
+  const bicycleId = params.bicycleId; 
 
   return (
     <div>
@@ -14,6 +13,6 @@ const Bicycle: React.FC = () => {
       {/* Render other bicycle details here */}
     </div>
   );
-};
+});
 
 export default Bicycle;
