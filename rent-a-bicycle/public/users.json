@@ -1,38 +1,47 @@
 [
     {
         "id": 1,
-        "name": "Alice"
+        "name": "Alice",
+        "funds": 200
     },
     {
         "id": 2,
-        "name": "Bob"
+        "name": "Bob",
+        "funds": 25
     },
     {
         "id": 3,
-        "name": "Charlie"
+        "name": "Charlie",
+        "funds": 20
     },
     {
         "id": 4,
-        "name": "Diana"
+        "name": "Diana",
+        "funds": 500
     },
     {
         "id": 5,
-        "name": "Ethan"
+        "name": "Ethan",
+        "funds": 0
     },
     {
         "id": 6,
-        "name": "Fiona"
+        "name": "Fiona",
+        "funds": 100
     },
     {
         "id": 7,
-        "name": "George"
+        "name": "George",
+        "funds": 80
     },
     {
         "id": 8,
-        "name": "Diana"
+        "name": "Diana",
+        "funds": 100
     },
     {
         "id": 9,
-        "name": "Ethan"
+        "name": "Ethan",
+        "funds": 0
     }
 ]

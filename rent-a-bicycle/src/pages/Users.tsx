@@ -8,25 +8,16 @@ import {
     initTE,
     Input
 } from "tw-elements";
-import { IBicycle } from "../store/models/Bicycle";
-import { ActionDropDown } from "../components/DropDownActions";
 import { Searchbar } from "../components/Searchbar";
-import { BicycleList } from "../components/BicycleList";
 import { IUser } from "../store/models/User";
 import { UserList } from "../components/UserList";
 
 export const Users = observer(() => {
 
-    const userActions = [
-        { label: "Action 1", action: () => console.log("User Action 1") },
-        { label: "Action 2", action: () => console.log("User Action 2") }
-    ];
-
     const { bicycleStore } = userRootStore();
     const navigate = useNavigate();
 
     const handleRowClick = (user: IUser) => {
-        console.log('Row clicked', user);
         navigate(`/users/${user.id}`)
     };
 
@@ -35,7 +26,7 @@ export const Users = observer(() => {
         setSearchTerm(event.target.value);
     };
     useEffect(() => {
-        bicycleStore.setSearchQuery(searchTerm);
+        bicycleStore.setUserSearchQuery(searchTerm);
     }, [searchTerm]);
 
     useEffect(() => {
@@ -46,8 +37,6 @@ export const Users = observer(() => {
         bicycleStore.setNavtitle("Users");
     }, []);
 
-
-
     return (
         <>
             <div className="flex">
@@ -57,7 +46,7 @@ export const Users = observer(() => {
             </div>
             <UserList
                 handleRowClick={handleRowClick}
-                users={bicycleStore.users} />
+                users={bicycleStore.filteredUsers} />
         </>
     )
 });

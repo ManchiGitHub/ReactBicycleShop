@@ -38,7 +38,7 @@ export const Bicycles = observer(() => {
     }, []);
 
     useEffect(() => {
-        bicycleStore.setSearchQuery(searchTerm);
+        bicycleStore.setBicycleSearchQuery(searchTerm);
     }, [searchTerm]);
 
     useEffect(() => {

@@ -5,6 +5,7 @@ import { Home } from "./pages/Home";
 import { Bicycles } from "./pages/Bicycles";
 import Bicycle from "./pages/Bicycle";
 import { Users } from "./pages/Users";
+import User from "./pages/User";
 
 export const browserRouter = createBrowserRouter([
     {
@@ -19,12 +20,16 @@ export const browserRouter = createBrowserRouter([
                 element: <Bicycles />
             },
             {
-                path: "/",
-                element: <Home />
+                path: "/users/:userId",
+                element: <User />
             },
             {
                 path: "/users",
                 element: <Users />
+            },
+            {
+                path: "/",
+                element: <Home />
             },
             {
                 path: "*",
