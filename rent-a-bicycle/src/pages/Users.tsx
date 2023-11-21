@@ -25,7 +25,7 @@ export const Users = observer(() => {
     }, [searchTerm]);
 
     useEffect(() => {
-        initTE({ Dropdown, Ripple, Input });
+        initTE({ Dropdown, Ripple, Input }, { allowReinits: true });
     }, []);
 
     useEffect(() => {
@@ -34,11 +34,10 @@ export const Users = observer(() => {
 
     return (
         <>
-            <div className="flex">
-                <Searchbar
-                    hintText="Search users"
-                    handleInputChangeEvent={handleInputChange} />
-            </div>
+            <Searchbar
+                hintText="Search users"
+                handleInputChangeEvent={handleInputChange} />
+
             <UserList
                 handleRowClick={handleRowClick}
                 users={bicycleStore.filteredUsers} />

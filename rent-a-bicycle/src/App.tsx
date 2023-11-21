@@ -14,11 +14,6 @@ const App = () => {
       bicycleStore: {
         bicycles: [],
         navigationTitle: '',
-      },
-      currentUser: {
-        name: '',
-        funds: 0,
-        id: 0
       }
     }),
     []

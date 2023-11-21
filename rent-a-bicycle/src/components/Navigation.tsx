@@ -18,7 +18,7 @@ export const NavigationBar: React.FC = observer(() => {
     return (
         <header>
             <nav
-                className="relative flex w-full items-center justify-between bg-white py-2 text-neutral-600 shadow-lg hover:text-neutral-700 focus:text-neutral-700 dark:bg-neutral-600 dark:text-neutral-200 md:flex-wrap md:justify-start"
+                className="relative flex w-full items-center justify-between bg-white py-2 text-neutral-600 shadow hover:text-neutral-700 focus:text-neutral-700 dark:bg-neutral-600 dark:text-neutral-200 md:flex-wrap md:justify-start"
                 data-te-navbar-ref>
                 <div className="flex w-full flex-wrap items-center justify-between px-3">
                     <div className="flex items-center">
@@ -70,7 +70,7 @@ export const NavigationBar: React.FC = observer(() => {
             </nav>
 
             <div
-                className="bg-neutral-50 px-4 py-3 text-start text-neutral-800 dark:bg-neutral-700 dark:text-neutral-200">
+                className="px-4 py-3 text-start text-neutral-800 dark:bg-neutral-700 dark:text-neutral-200">
                 <h1 className="mb-3 my-2 text-5xl font-bold">{bicycleStore.navigationTitle}</h1>
             </div>
         </header>

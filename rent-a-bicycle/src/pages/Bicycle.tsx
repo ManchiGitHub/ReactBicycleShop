@@ -9,7 +9,7 @@ const Bicycle: React.FC = observer(() => {
   const { bicycleStore } = userRootStore()
 
 useEffect(()=>{
-  bicycleStore.setNavtitle(bicycleId || "some bicycle")
+  bicycleStore.setNavtitle(`${bicycleId}`);
 },[]);
 
   return (

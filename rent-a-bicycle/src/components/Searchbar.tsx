@@ -1,9 +1,22 @@
+import { observer } from "mobx-react-lite";
+import { useEffect } from "react";
+import {
+    Input,
+    initTE,
+    Ripple
+} from "tw-elements";
+
 interface SearchbarProps {
     handleInputChangeEvent: (event: React.ChangeEvent<HTMLInputElement>) => void;
     hintText: string;
 }
 
-export const Searchbar: React.FC<SearchbarProps> = ({ handleInputChangeEvent, hintText }) => {
+export const Searchbar: React.FC<SearchbarProps> = observer(({ handleInputChangeEvent, hintText }) => {
+
+    useEffect(() => {
+        initTE({ Input, Ripple }, { allowReinits: true});
+    }, []);
+
     return (
         <div className="mx-3 relative flex-grow mb-3" data-te-input-wrapper-init>
             <input
@@ -19,4 +32,4 @@ export const Searchbar: React.FC<SearchbarProps> = ({ handleInputChangeEvent, hi
             </label>
         </div>
     );
-}
+})

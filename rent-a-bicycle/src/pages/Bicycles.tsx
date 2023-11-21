@@ -41,7 +41,7 @@ export const Bicycles = observer(() => {
     }, [searchTerm]);
 
     useEffect(() => {
-        initTE({ Dropdown, Ripple, Input });
+        initTE({ Dropdown, Ripple, Input }, { alowReinits: true });
     }, []);
 
     return (

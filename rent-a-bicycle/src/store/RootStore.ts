@@ -4,7 +4,7 @@ import { User } from "./models/User";
 
 const RootStore = types.model("RootStore", {
     bicycleStore: BicycleStore,
-    currentUser: User,
+    currentUser: types.optional(User, {id:969, name:"", funds:0}),
 })
 
 export interface IRootStore extends Instance<typeof RootStore> { }

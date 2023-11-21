@@ -1,6 +1,5 @@
 import { Instance, applySnapshot, flow, types } from "mobx-state-tree";
 import { Bicycle } from "./Bicycle";
-import BicyclesAPI from "../../api/BicyclesAPI";
 import { User } from "./User";
 import userService from "../../api/UsersAPI";
 import bicycleService from "../../api/BicyclesAPI";

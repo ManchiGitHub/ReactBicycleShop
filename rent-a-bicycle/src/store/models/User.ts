@@ -2,7 +2,7 @@ import { Instance, applySnapshot, flow, types } from "mobx-state-tree";
 import userService from "../../api/UsersAPI";
 
 export const User = types.model("User", {
-    id: types.identifierNumber,
+    id: types.number,
     name: types.string,
     funds: types.number
 }).actions(self => ({
@@ -14,7 +14,6 @@ export const User = types.model("User", {
                 }
             })
     })
-
 }))
 
 type IUser = Instance<typeof User>;
