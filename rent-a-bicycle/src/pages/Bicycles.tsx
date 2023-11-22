@@ -12,6 +12,8 @@ import { IBicycle } from "../store/models/Bicycle";
 import { ActionDropDown } from "../components/DropDownActions";
 import { Searchbar } from "../components/Searchbar";
 import { BicycleList } from "../components/BicycleList";
+import { toast, ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 export const Bicycles = observer(() => {
 
@@ -45,14 +47,25 @@ export const Bicycles = observer(() => {
             <div className="flex">
                 <ActionDropDown
                     turnOn={() => {
+                        if (selectedBicycles.length === 0) {
+                            toast.warning("Please first select the bicycles you want their lights turned on.");
+                        }
                         bicycleStore.turnLightsOn(selectedBicycles);
                     }}
                     turnOff={() => {
+                        if (selectedBicycles.length === 0) {
+                            toast.warning("Please first select the bicycles you want their lights turned off.");
+                        }
                         bicycleStore.turnLightsOff(selectedBicycles);
                     }}
                 />
+                <ToastContainer
+                    position="top-center"
+                    hideProgressBar
+                />
                 <Searchbar hintText="Search bicycles by state" handleInputChangeEvent={handleSearchKeyChange} />
             </div>
+
             <BicycleList handleRowClick={handleRowClick} bicycles={bicycleStore.filteredBicycles} updateSelectedBicycles={setSelectecBicycles} />
         </>
     )
