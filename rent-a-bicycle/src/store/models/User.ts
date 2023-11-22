@@ -13,6 +13,16 @@ export const User = types.model("User", {
                     applySnapshot(self, result);
                 }
             })
+    }),
+    addFunds: flow(function* (funds: string) {
+        yield userService.addFundsToUser(self.id.toString(), parseInt(funds, 10))
+        yield userService.fetchUser(self.id.toString())
+            .then((results: any) => {
+                if (results) {
+                   applySnapshot(self,results);
+                }
+            })
+
     })
 }))
 

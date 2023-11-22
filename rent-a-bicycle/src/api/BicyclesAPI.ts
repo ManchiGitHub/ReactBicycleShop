@@ -3,9 +3,9 @@ import { Network, RequestHeaders } from "./APIUtils";
 
 const fetchBicycles = async () => {
     try {
-        const response = await fetch(Network.BicyclesEndpoint, RequestHeaders.BypassGrokLandingPageHeader);
+        const response = await fetch(Network.BicyclesEndpoint);
         const bicycles: IBicycle[] = await response.json()
-        console.log(`Server returned ${bicycles.length} bicycles`)
+        console.log(`Server returned ${bicycles.length}/bicycles`)
         return bicycles;
     } catch (error) {
         console.log("error fetching bicycles", error)
@@ -13,19 +13,16 @@ const fetchBicycles = async () => {
     }
 }
 
-const updateBicycleLights = async (bicycles: IBicycle[] ,lightsOn: Boolean) => {
+const updateBicycleLights = async (bicycles: IBicycle[], lightsOn: Boolean) => {
     try {
-        for (const bicycle of bicycles) {
-            const promise = fetch(`${Network.BicyclesEndpoint}/${bicycle.id}`, {
-                method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'ngrok-skip-browser-warning': 'true'
-                },
-                body: JSON.stringify({ lights: lightsOn })
-            })
-            await promise;
-        }
+        const bicycleIds = bicycles.map(bicycle => bicycle.id);
+        await fetch(`${Network.BicyclesEndpoint}/updateLights`, {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            method: 'PATCH',
+            body: JSON.stringify({ bicycles: bicycleIds, lightsOn })
+        });
     } catch (error) {
         console.error('Error updating bicycles:', error);
         throw error;
