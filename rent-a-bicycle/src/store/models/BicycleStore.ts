@@ -1,5 +1,5 @@
 import { Instance, applySnapshot, flow, types } from "mobx-state-tree";
-import { Bicycle } from "./Bicycle";
+import { Bicycle, IBicycle } from "./Bicycle";
 import { User } from "./User";
 import userService from "../../api/UsersAPI";
 import bicycleService from "../../api/BicyclesAPI";
@@ -52,19 +52,37 @@ export const BicycleStore = types.model({
                 }
             })
         }),
-        turnAllLightsOff() {
-            const turnedOffBicycles = self.bicycles.map(bicycle => ({
-                ...bicycle,
-                lights: false
-            }));
-            applySnapshot(self.bicycles, turnedOffBicycles);
-        },
-        turnAllLightsOn: flow(function* () {
-            const turnedOffBicycles = self.bicycles.map(bicycle => ({
-                ...bicycle,
-                lights: true
-            }));
-            applySnapshot(self.bicycles, turnedOffBicycles);
+        turnLightsOff: flow(function* (bicycles: IBicycle[]) {
+            try {
+                yield bicycleService.updateBicycleLights(bicycles, false);
+                yield bicycleService.fetchBicycles().then((bicycles: any) => {
+                    try {
+                        if (bicycles) {
+                            applySnapshot(self.bicycles, bicycles);
+                        }
+                    } catch (eror) {
+
+                    }
+                })
+            } catch (error) {
+                console.error("Failed to turn on all lights:", error);
+            }
+        }),
+        turnLightsOn: flow(function* (bicycles: IBicycle[]) {
+            try {
+                yield bicycleService.updateBicycleLights(bicycles, true);
+                yield bicycleService.fetchBicycles().then((bicycles: any) => {
+                    try {
+                        if (bicycles) {
+                            applySnapshot(self.bicycles, bicycles);
+                        }
+                    } catch (error) {
+                        console.log("Error while turning lights on", error);
+                    }
+                })
+            } catch (error) {
+                console.error("Failed to turn on all lights:", error);
+            }
         }),
         setBicycleSearchQuery(query: string) {
             self.searchBicycleQuery = query;

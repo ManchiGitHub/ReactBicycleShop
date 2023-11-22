@@ -15,13 +15,11 @@ import { BicycleList } from "../components/BicycleList";
 
 export const Bicycles = observer(() => {
 
+    useEffect(() => {
+        bicycleStore.setNavtitle("Bicycles");
+    }, []);
+
     const { bicycleStore } = userRootStore();
-
-    const bicycleActions = [
-        { label: "Turn Lights on", action: bicycleStore.turnAllLightsOn },
-        { label: "Turn lights off", action: bicycleStore.turnAllLightsOff }
-    ];
-
     const navigate = useNavigate();
     const handleRowClick = (item: IBicycle) => {
         navigate(`/bicycles/${item.id}`)
@@ -33,10 +31,6 @@ export const Bicycles = observer(() => {
     };
 
     useEffect(() => {
-        bicycleStore.setNavtitle("Bicycles");
-    }, []);
-
-    useEffect(() => {
         bicycleStore.setBicycleSearchQuery(searchTerm);
     }, [searchTerm]);
 
@@ -44,13 +38,22 @@ export const Bicycles = observer(() => {
         initTE({ Dropdown, Ripple, Input }, { alowReinits: true });
     }, []);
 
+    const [selectedBicycles, setSelectecBicycles] = useState<IBicycle[]>([]);
+
     return (
         <>
             <div className="flex">
-                <ActionDropDown actions={bicycleActions} />
+                <ActionDropDown
+                    turnOn={() => {
+                        bicycleStore.turnLightsOn(selectedBicycles);
+                    }}
+                    turnOff={() => {
+                        bicycleStore.turnLightsOff(selectedBicycles);
+                    }}
+                />
                 <Searchbar hintText="Search bicycles by state" handleInputChangeEvent={handleSearchKeyChange} />
             </div>
-            <BicycleList handleRowClick={handleRowClick} bicycles={bicycleStore.filteredBicycles} />
+            <BicycleList handleRowClick={handleRowClick} bicycles={bicycleStore.filteredBicycles} updateSelectedBicycles={setSelectecBicycles} />
         </>
     )
 });
