@@ -4,7 +4,7 @@ import {
     Dropdown,
     Ripple,
     initTE,
-  } from "tw-elements";
+} from "tw-elements";
 
 interface Action {
     label: string;
@@ -12,11 +12,12 @@ interface Action {
 }
 
 interface ActionDropDownProps {
-    turnOff: ()=> void,
-    turnOn: ()=> void
+    turnOff: () => void,
+    turnOn: () => void,
+    addBicycles: () => void
 }
 
-export const ActionDropDown: React.FC<ActionDropDownProps> = observer(({ turnOn, turnOff }) => {
+export const ActionDropDown: React.FC<ActionDropDownProps> = observer(({ turnOn, turnOff, addBicycles }) => {
 
     useEffect(() => {
         initTE({ Dropdown, Ripple }, { allowReinits: false });
@@ -50,20 +51,27 @@ export const ActionDropDown: React.FC<ActionDropDownProps> = observer(({ turnOn,
                 className="absolute z-[1000] float-left m-0 hidden min-w-max list-none overflow-hidden rounded-lg border-none bg-white bg-clip-padding text-left text-base shadow-lg dark:bg-neutral-700 [&[data-te-dropdown-show]]:block"
                 aria-labelledby="dropdownMenuButton1"
                 data-te-dropdown-menu-ref>
-                    <li key={1}>
-                        <button
-                            onClick={turnOn}
-                            className="block w-full whitespace-nowrap bg-transparent px-10 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-neutral-600">
-                            Turn lights on
-                        </button>
-                    </li>
-                    <li key={2}>
-                        <button
-                            onClick={turnOff}
-                            className="block w-full whitespace-nowrap bg-transparent px-10 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-neutral-600">
-                            Turn lights off
-                        </button>
-                    </li>
+                <li key={1}>
+                    <button
+                        onClick={turnOn}
+                        className="block w-full whitespace-nowrap bg-transparent px-10 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-neutral-600">
+                        Turn lights on
+                    </button>
+                </li>
+                <li key={2}>
+                    <button
+                        onClick={turnOff}
+                        className="block w-full whitespace-nowrap bg-transparent px-10 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-neutral-600">
+                        Turn lights off
+                    </button>
+                </li>
+                <li key={3}>
+                    <button
+                        onClick={addBicycles}
+                        className="block w-full whitespace-nowrap bg-transparent px-10 py-2 text-sm font-normal text-neutral-700 hover:bg-neutral-100 active:text-neutral-800 active:no-underline disabled:pointer-events-none disabled:bg-transparent disabled:text-neutral-400 dark:text-neutral-200 dark:hover:bg-neutral-600">
+                        Add a bicycle
+                    </button>
+                </li>
             </ul>
         </div>
     );

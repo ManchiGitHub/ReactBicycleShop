@@ -17,8 +17,8 @@ export const User = types.model("User", {
     }
 
     return {
-        loadUser: flow(function* (userId: string) {
-            yield fetchAndUpdateUser(userId);
+        loadUser: flow(function* () {
+            yield fetchAndUpdateUser(self.id.toString());
         }),
 
         addFunds: flow(function* (funds: string) {

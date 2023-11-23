@@ -72,13 +72,46 @@ app.patch('/users/:userId/addFunds', (req, res) => {
 
     fs.writeFileSync(dbFilePath, JSON.stringify(db, null, 2));
     console.log(`Funds added to user ${userId}: ${fundsToAdd}`);
-    res.json({message: `Funds added successfully to user ${userId}`})
+    res.json({ message: `Funds added successfully to user ${userId}` })
 });
 
 app.get('/bicycles', (req, res) => {
     console.log("hit: /bicycles");
     const db = JSON.parse(fs.readFileSync(dbFilePath, 'utf8'));
     res.json(db.bicycles);
+});
+
+app.post('/bicycles/addBicycle', (req, res) => {
+    console.log(req.body.newBicycle);
+    console.log("hit: /addBicycle");
+    const newBicycle = req.body.newBicycle;
+    if (!newBicycle || !newBicycle.id || !newBicycle.location || !newBicycle.ip) {
+        return res.status(400).send("Missing bicycle information");
+    }
+
+    const db = JSON.parse(fs.readFileSync(dbFilePath, 'utf8'));
+
+    const existingBicycle = db.bicycles.find((b: IBicycle) => b.id === newBicycle.id);
+    if (existingBicycle) {
+        return res.status(409).send("A bicycle with the same ID already exists");
+    }
+
+    db.bicycles.push(newBicycle);
+    fs.writeFileSync(dbFilePath, JSON.stringify(db, null, 2));
+
+    console.log(`Added new bicycle with ID: ${newBicycle.id}`);
+    return res.status(201).json({ message: `Bicycle with ID ${newBicycle.id} added successfully` });
+});
+
+app.get('/bicycles/last-bicycle-id', (req, res) => {
+    console.log("hit: /bicycles/last-bicycle-id");
+    const db = JSON.parse(fs.readFileSync(dbFilePath, 'utf8'));
+    if (db.bicycles && db.bicycles.length > 0) {
+        const lastBicycleId = Math.max(...db.bicycles.map((bicycle: IBicycle) => bicycle.id));
+        res.json({ lastId: lastBicycleId })
+    } else {
+        res.status(404).json({ message: "No bicycles found" });
+    }
 });
 
 app.post('/updateBicycleLights', (req, res) => {

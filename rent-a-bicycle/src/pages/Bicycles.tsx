@@ -14,6 +14,9 @@ import { Searchbar } from "../components/Searchbar";
 import { BicycleList } from "../components/BicycleList";
 import { toast, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import { onSnapshot } from "mobx-state-tree";
+import { AddBicycleDialog } from "../components/AddBicycleDialog";
+import { autorun } from "mobx";
 
 export const Bicycles = observer(() => {
 
@@ -29,7 +32,9 @@ export const Bicycles = observer(() => {
 
     const [searchTerm, setSearchTerm] = useState('');
     const handleSearchKeyChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setSearchTerm(event.target.value);
+        if (searchTerm !== event.target.value) {
+            setSearchTerm(event.target.value);
+        }
     };
 
     useEffect(() => {
@@ -37,10 +42,24 @@ export const Bicycles = observer(() => {
     }, [searchTerm]);
 
     useEffect(() => {
-        initTE({ Dropdown, Ripple, Input }, { alowReinits: true });
+        initTE({ Dropdown, Ripple, Input });
     }, []);
 
     const [selectedBicycles, setSelectecBicycles] = useState<IBicycle[]>([]);
+
+    const handleAddBicycles = () => {
+        // setIsDialogOpen(true);
+        const modalTrigger = document.getElementById('modalTrigger');
+        if (modalTrigger) {
+            modalTrigger.click();
+        } else {
+            console.error('Modal trigger not found');
+        }
+    };
+
+    const handleDialogSubmit = (location: string, ip: string) => {
+        bicycleStore.addBicycle(location, ip);
+    };
 
     return (
         <>
@@ -58,6 +77,13 @@ export const Bicycles = observer(() => {
                         }
                         bicycleStore.turnLightsOff(selectedBicycles);
                     }}
+                    addBicycles={handleAddBicycles}
+                />
+                {/* Hidden trigger for opening modal */}
+                <div id="modalTrigger" data-te-toggle="modal" data-te-target="#exampleModal" style={{ display: 'none' }}></div>
+
+                <AddBicycleDialog
+                    onSubmit={handleDialogSubmit}
                 />
                 <ToastContainer
                     position="top-center"

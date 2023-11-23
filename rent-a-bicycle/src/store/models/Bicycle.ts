@@ -16,7 +16,6 @@ export const Bicycle = types.model("Bicycle", {
     ip: types.string
 }).actions(self => ({
     turnLightsOn() {
-
         self.lights = true;
     },
     turnLightsOff() {

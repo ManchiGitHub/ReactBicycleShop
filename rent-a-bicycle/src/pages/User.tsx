@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { userRootStore } from '../store/common/RootStoreContext';
 import { Input, initTE } from "tw-elements";
 import { observer } from 'mobx-react-lite';
+import { onSnapshot } from 'mobx-state-tree';
 
 interface UserPageParams {
   onAddFunds: () => void;
@@ -20,7 +21,7 @@ const UserPage: React.FC = observer(() => {
 
   useEffect(() => {
     if (userId) {
-      currentUser.loadUser(userId).then(() => {
+      currentUser.loadUser().then(() => {
         bicycleStore.setNavtitle(currentUser.name);
       });
     }
@@ -29,6 +30,14 @@ const UserPage: React.FC = observer(() => {
   useEffect(() => {
     initTE({ Input }, { allowReinits: true });
   }, []);
+
+//   useEffect(()=>{
+//     const disposer = onSnapshot(bicycleStore, (snapshot)=>{
+//         currentUser.loadUser();
+//     });
+
+//     return ()=> disposer();
+// },[currentUser]);
 
   return (
     <div className='p-4'>

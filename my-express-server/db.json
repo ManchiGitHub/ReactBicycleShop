@@ -125,6 +125,111 @@
       "status": "free",
       "location": "Israel",
       "ip": "0.0.0.1"
+    },
+    {
+      "id": 19,
+      "lights": false,
+      "status": "free",
+      "location": "ss",
+      "ip": "ss"
+    },
+    {
+      "id": 20,
+      "lights": false,
+      "status": "free",
+      "location": "sdsds",
+      "ip": "sdsdsd"
+    },
+    {
+      "id": 21,
+      "lights": false,
+      "status": "free",
+      "location": "asdasdas",
+      "ip": "dasdasdasd"
+    },
+    {
+      "id": 22,
+      "lights": false,
+      "status": "free",
+      "location": "asdasdasdas",
+      "ip": "dasdasdasd"
+    },
+    {
+      "id": 23,
+      "lights": false,
+      "status": "free",
+      "location": "sa",
+      "ip": "sa"
+    },
+    {
+      "id": 24,
+      "lights": false,
+      "status": "free",
+      "location": "asdasdasd",
+      "ip": "dsad"
+    },
+    {
+      "id": 25,
+      "lights": false,
+      "status": "free",
+      "location": "2",
+      "ip": "2"
+    },
+    {
+      "id": 26,
+      "lights": false,
+      "status": "free",
+      "location": "asdasdasd",
+      "ip": "asdsad"
+    },
+    {
+      "id": 27,
+      "lights": false,
+      "status": "free",
+      "location": "asd",
+      "ip": "asdasdasd"
+    },
+    {
+      "id": 28,
+      "lights": false,
+      "status": "free",
+      "location": "sdasdasdasd",
+      "ip": "asdasda"
+    },
+    {
+      "id": 29,
+      "lights": false,
+      "status": "free",
+      "location": "34",
+      "ip": "34344"
+    },
+    {
+      "id": 30,
+      "lights": false,
+      "status": "free",
+      "location": "123",
+      "ip": "12312"
+    },
+    {
+      "id": 31,
+      "lights": false,
+      "status": "free",
+      "location": "asdsad",
+      "ip": "asdasdasd123123123"
+    },
+    {
+      "id": 32,
+      "lights": true,
+      "status": "free",
+      "location": "31",
+      "ip": "31"
+    },
+    {
+      "id": 33,
+      "lights": true,
+      "status": "free",
+      "location": "Holon",
+      "ip": "0.0.0.0"
     }
   ],
   "users": [
