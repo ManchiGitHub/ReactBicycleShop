@@ -18,7 +18,7 @@ export const Searchbar: React.FC<SearchbarProps> = observer(({ handleInputChange
     }, []);
 
     return (
-        <div className="mx-3 relative flex-grow mb-3" data-te-input-wrapper-init>
+        <div className="flex-grow-0 flex-shrink w-1/3 ms-1 relative mb-3" data-te-input-wrapper-init>
             <input
                 onChange={handleInputChangeEvent}
                 type="text"

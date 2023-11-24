@@ -1,5 +1,5 @@
 import { Instance, applySnapshot, flow, types } from "mobx-state-tree";
-import { Bicycle, IBicycle } from "./Bicycle";
+import { Bicycle, IBicycle, Status } from "./Bicycle";
 import { User } from "./User";
 import userService from "../../api/UsersAPI";
 import bicycleService from "../../api/BicyclesAPI";
@@ -27,6 +27,10 @@ export const BicycleStore = types.model({
             const results = self.users.filter(user =>
                 user.name.toLocaleLowerCase().includes(self.searchUserQuery.toLocaleLowerCase()));
 
+            return results;
+        },
+        get freeBicycles() {
+            const results = self.bicycles.filter(bicycle => bicycle.status.toLocaleLowerCase() == Status.FREE);
             return results;
         }
     }))

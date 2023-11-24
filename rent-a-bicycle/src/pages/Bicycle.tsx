@@ -16,6 +16,7 @@ useEffect(()=>{
     <div>
       <h1>Bicycle Detail Page</h1>
       <p>Bicycle ID: {bicycleId}</p>
+      <p>This bicycle is being used by user 12</p>
       {/* Render other bicycle details here */}
     </div>
   );

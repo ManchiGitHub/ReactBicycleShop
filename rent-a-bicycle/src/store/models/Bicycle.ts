@@ -1,6 +1,6 @@
 import { Instance, types } from "mobx-state-tree";
 
-const Status = {
+export const Status = {
     FREE: "free",
     BUSY: "busy",
     BROKEN: "broken"
