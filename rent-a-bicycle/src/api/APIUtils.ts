@@ -1,4 +1,4 @@
-const baseURL = 'http://localhost:3000'; // need to regenrate everytime ngrok launches. 
+const baseURL = 'http://localhost:3000'; 
 const UsersEndpoint = `${baseURL}/users`;
 const BicyclesEndpoint = `${baseURL}/bicycles`;
 

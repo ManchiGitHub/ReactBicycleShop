@@ -45,7 +45,7 @@ export const BicycleStore = types.model({
                     throw new Error("bicycles not found");
                 }
             } catch (error) {
-                return console.error("Error fetching bicycles:", error);
+                console.error("Error fetching bicycles:", error);
             }
         };
 

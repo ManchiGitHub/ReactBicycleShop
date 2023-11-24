@@ -20,7 +20,8 @@ export const RentBicycleDialog: React.FC<RentBicycleDialogProps> = ({ bicycles, 
     const handleItemClick = (bicycle: IBicycle) => {
         const modalTrigger = document.getElementById('rentBicycleTrigger');
         if (modalTrigger) {
-            modalTrigger.click();
+            onRent(bicycle);
+            // modalTrigger.click();
         } else {
             console.error('Modal trigger not found');
         }

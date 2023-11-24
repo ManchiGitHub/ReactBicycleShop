@@ -33,10 +33,10 @@ const addBicycle = async (id: number, location: string, ip: string) => {
             },
             body: JSON.stringify({
                 newBicycle: {
-                    id: id, 
+                    id: id,
                     lights: false,
                     status: "free",
-                    location, 
+                    location,
                     ip
                 }
             })
@@ -50,9 +50,29 @@ const addBicycle = async (id: number, location: string, ip: string) => {
     }
 };
 
-//TODO:
-// create an async arrow function called 'addBicycle(id:number, location:string, ip: string)
-// it should be a post request.
+const operateBicycle = async (bicycleId: number, isLock: boolean) => {
+    try {
+        console.log("attempt lock")
+        const response = await fetch(`${Network.BicyclesEndpoint}/lock-bicycle`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                id: bicycleId,
+                lockBicycle: isLock
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error(`${response.status}`);
+        }
+        return true
+    } catch (error) {
+        console.error(`Error locking bicycle with ID ${bicycleId}`, error);
+        return false;
+    }
+};
 
 const updateBicycleLights = async (bicycles: IBicycle[], lightsOn: Boolean) => {
     try {
@@ -70,8 +90,13 @@ const updateBicycleLights = async (bicycles: IBicycle[], lightsOn: Boolean) => {
     }
 };
 
+
+
 const bicycleService = {
-    fetchBicycles, updateBicycleLights, fetchLastBicyleId, addBicycle
+    fetchBicycles,
+    updateBicycleLights,
+    fetchLastBicyleId,
+    addBicycle, lockBicycle: operateBicycle
 };
 
 export default bicycleService;

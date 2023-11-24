@@ -5,6 +5,7 @@ import { Input, initTE } from "tw-elements";
 import { observer } from 'mobx-react-lite';
 import { onSnapshot } from 'mobx-state-tree';
 import { RentBicycleDialog } from '../components/RentBicycleDialog';
+import { IBicycle } from '../store/models/Bicycle';
 
 interface UserPageParams {
   onAddFunds: () => void;
@@ -20,8 +21,8 @@ const UserPage: React.FC = observer(() => {
     setFundsValue(event.target.value);
   };
 
-  const handleRentBicyleClick = () => {
-
+  const handleRentBicyleClick = (bicycle: IBicycle) => {
+    bicycle.use();
   }
 
   useEffect(() => {

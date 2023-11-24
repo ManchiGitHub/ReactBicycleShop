@@ -81,8 +81,31 @@ app.get('/bicycles', (req, res) => {
     res.json(db.bicycles);
 });
 
+app.post('/bicycles/lock-bicycle', (req, res) => {
+    console.log(`hit: /bicycles/lock-bicycle`);
+    const { id, lockBicycle } = req.body;
+    if (!id) {
+        return res.status(400).send("Missing bicycle id");
+    }
+
+    const db = JSON.parse(fs.readFileSync(dbFilePath, 'utf8'));
+    const existingBicycle: IBicycle = db.bicycles.find((b: IBicycle) => b.id === id);
+    if (!existingBicycle) {
+        return res.status(400).send(`Bicyclet ${existingBicycle} not found`);
+    }
+
+    if (existingBicycle.status !== BicycleStatusEnum.FREE){
+        return res.status(409).send(`Bicycle ${existingBicycle.id} cannot be lock because it is ${existingBicycle.status}`)
+    }
+
+    existingBicycle.status = BicycleStatusEnum.BUSY;
+
+    fs.writeFileSync(dbFilePath, JSON.stringify(db, null, 2));
+    console.log(`bicycle ${existingBicycle.id} is now being used`);
+    res.json({ message: `Successfully locked bicycle ${existingBicycle.id}` })
+});
+
 app.post('/bicycles/addBicycle', (req, res) => {
-    console.log(req.body.newBicycle);
     console.log("hit: /addBicycle");
     const newBicycle = req.body.newBicycle;
     if (!newBicycle || !newBicycle.id || !newBicycle.location || !newBicycle.ip) {
