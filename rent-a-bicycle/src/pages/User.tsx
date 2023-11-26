@@ -7,10 +7,6 @@ import { onSnapshot } from 'mobx-state-tree';
 import { RentBicycleDialog } from '../components/RentBicycleDialog';
 import { IBicycle } from '../store/models/Bicycle';
 
-interface UserPageParams {
-  onAddFunds: () => void;
-}
-
 const UserPage: React.FC = observer(() => {
   const params = useParams<{ userId: string }>();
   const userId = params.userId;
@@ -21,8 +17,11 @@ const UserPage: React.FC = observer(() => {
     setFundsValue(event.target.value);
   };
 
+  const [currentBicycle, setcurrentBicycle] = useState<IBicycle>();
   const handleRentBicyleClick = (bicycle: IBicycle) => {
-    bicycle.use();
+    bicycle.start(userId).then(() => {
+      setcurrentBicycle(bicycle);
+    });
   }
 
   useEffect(() => {
@@ -31,7 +30,12 @@ const UserPage: React.FC = observer(() => {
         bicycleStore.setNavtitle(currentUser.name);
       });
     }
-  }, [currentUser, userId]);
+  }, [userId, currentBicycle]);
+
+
+  useEffect(() => {
+    console.log("currentBicycleId", currentUser.currentBicycleId);
+  }, [currentUser.currentBicycleId])
 
   useEffect(() => {
     initTE({ Input }, { allowReinits: true });
@@ -42,7 +46,13 @@ const UserPage: React.FC = observer(() => {
       <div>
         <p>User ID: {currentUser.id}</p>
         <p>Funds: {currentUser.funds}</p>
-        <p>{currentUser.name} is using bicycle 2 (mock)</p>
+        {
+          /* TODO: if currentUser.currentBicycleId is 0, then I want to display "This user is currently not using a bicycle" 
+              otherwise, I want to display that the user is using bicycle {currentUser.bicycleId}
+          */}
+        <p className='line-clamp-1'>
+          This user is using bicycle {currentUser.currentBicycleId}
+        </p>
       </div>
       <div className='flex items-center my-3'>
         <button

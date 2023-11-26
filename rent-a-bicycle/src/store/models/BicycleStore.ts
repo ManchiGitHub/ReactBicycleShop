@@ -38,14 +38,14 @@ export const BicycleStore = types.model({
 
         const fetchAndUpdateBicycles = async () => {
             try {
-                const bicycles = await bicycleService.fetchBicycles();
+                const bicycles : IBicycle[] = await bicycleService.fetchBicycles();
                 if (bicycles) {
                     applySnapshot(self.bicycles, bicycles);
                 } else {
                     throw new Error("bicycles not found");
                 }
             } catch (error) {
-                console.error("Error fetching bicycles:", error);
+                console.error("error", error);
             }
         };
 

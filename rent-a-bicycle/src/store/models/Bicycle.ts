@@ -14,12 +14,16 @@ export const Bicycle = types.model("Bicycle", {
     lights: types.boolean,
     status: bicycleStatus,
     location: types.string,
-    ip: types.string
+    ip: types.string,
+    currentUserId: types.number
 }).actions(self => {
 
-    const lock = async (): Promise<boolean> => {
-        const isSuccessfulLock: boolean = await bicycleService.lockBicycle(self.id, true);
-        return isSuccessfulLock;
+    const lock = async (userId: number): Promise<boolean> => {
+        return await bicycleService.operateBicycle(self.id, userId, true);
+    }
+
+    const unlock = async (userId: number): Promise<boolean> => {
+        return await bicycleService.operateBicycle(self.id, userId, false);
     }
 
     return {
@@ -29,38 +33,18 @@ export const Bicycle = types.model("Bicycle", {
         turnLightsOff() {
             self.lights = false;
         },
-        use: flow(function* () {
-
-            if (self.status === Status.BROKEN) {
-                console.log(`can't lock bicycle ${self.id} because its broken.`);
-                return;
-            }
-
-            if (self.status === Status.BUSY) {
-                console.log(`this bicycle is busy and cannot be locked.`);
-                return;
-            }
-
-            if (self.status === Status.FREE) {
-                const isSuccessfulLock = yield lock();
-                self.status = isSuccessfulLock? Status.BUSY : self.status
+        start: flow(function* (userId: any) {
+            if (userId) {
+                const isSuccessfulLock = yield lock(parseInt(userId));
+                self.status = isSuccessfulLock ? Status.BUSY : self.status
             }
         }),
-        stopUse() {
-            if (self.status === Status.BROKEN) {
-                console.log(`can't lock bicycle ${self.id} because its broken. bicycle id = ${self.id}`);
-                return;
+        stop: flow(function* (userId: any) {
+            if (userId) {
+                const isSuccessfulLock = yield unlock(parseInt(userId));
+                self.status = isSuccessfulLock ? Status.BUSY : self.status
             }
-
-            if (self.status === Status.FREE) {
-                console.log(`this bicycle is not in use. bicycle id = ${self.id}`);
-                return;
-            }
-
-            if (self.status === Status.BUSY) {
-                self.status = Status.FREE;
-            }
-        },
+        }),
         getStatus(): string {
             return self.status
         }

@@ -37,7 +37,8 @@ const addBicycle = async (id: number, location: string, ip: string) => {
                     lights: false,
                     status: "free",
                     location,
-                    ip
+                    ip,
+                    currentUserId: null
                 }
             })
         });
@@ -50,7 +51,7 @@ const addBicycle = async (id: number, location: string, ip: string) => {
     }
 };
 
-const operateBicycle = async (bicycleId: number, isLock: boolean) => {
+const operateBicycle = async (bicycleId: number, userId: number, isLock: boolean) => {
     try {
         console.log("attempt lock")
         const response = await fetch(`${Network.BicyclesEndpoint}/lock-bicycle`, {
@@ -59,7 +60,8 @@ const operateBicycle = async (bicycleId: number, isLock: boolean) => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                id: bicycleId,
+                bicycleId: bicycleId,
+                userId: userId,
                 lockBicycle: isLock
             })
         });
@@ -96,7 +98,7 @@ const bicycleService = {
     fetchBicycles,
     updateBicycleLights,
     fetchLastBicyleId,
-    addBicycle, lockBicycle: operateBicycle
+    addBicycle, operateBicycle
 };
 
 export default bicycleService;

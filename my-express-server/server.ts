@@ -13,13 +13,15 @@ interface IBicycle {
     lights: boolean;
     status: BicycleStatusEnum,
     location: string,
-    ip: string
+    ip: string,
+    currentUserId: number
 }
 
 interface IUser {
     id: number;
     name: string,
-    funds: number
+    funds: number,
+    currentBicycleId: number
 }
 
 const app = express();
@@ -83,26 +85,43 @@ app.get('/bicycles', (req, res) => {
 
 app.post('/bicycles/lock-bicycle', (req, res) => {
     console.log(`hit: /bicycles/lock-bicycle`);
-    const { id, lockBicycle } = req.body;
-    if (!id) {
+    const { bicycleId, userId, lockBicycle } = req.body;
+
+    if (!bicycleId) {
         return res.status(400).send("Missing bicycle id");
     }
 
     const db = JSON.parse(fs.readFileSync(dbFilePath, 'utf8'));
-    const existingBicycle: IBicycle = db.bicycles.find((b: IBicycle) => b.id === id);
+    const existingBicycle: IBicycle = db.bicycles.find((b: IBicycle) => b.id === userId);
+
     if (!existingBicycle) {
-        return res.status(400).send(`Bicyclet ${existingBicycle} not found`);
+        return res.status(400).send(`Bicyclet not found`);
     }
 
-    if (existingBicycle.status !== BicycleStatusEnum.FREE){
-        return res.status(409).send(`Bicycle ${existingBicycle.id} cannot be lock because it is ${existingBicycle.status}`)
+    if (existingBicycle.status === BicycleStatusEnum.BROKEN) {
+        return res.status(409).send(`Bicycle ${bicycleId} is broken and cannot be used`);
     }
 
-    existingBicycle.status = BicycleStatusEnum.BUSY;
+    const statusMap: { [key: string]: { expected: BicycleStatusEnum; newStatus: BicycleStatusEnum; action: string } } = {
+        'true': { expected: BicycleStatusEnum.FREE, newStatus: BicycleStatusEnum.BUSY, action: 'locked' },
+        'false': { expected: BicycleStatusEnum.BUSY, newStatus: BicycleStatusEnum.FREE, action: 'unlocked' }
+    };
+
+    const key = String(lockBicycle);
+    const transition = statusMap[key];
+
+    if (existingBicycle.status !== transition.expected) {
+        return res.status(409).send(`Bicycle ${bicycleId} cannot be ${transition.action} as it is ${existingBicycle.status}`);
+    }
+
+    existingBicycle.status = transition.newStatus;
+    existingBicycle.currentUserId = parseInt(userId);
+
+    const user: IUser = db.users.find((user: IUser) => user.id === userId);
+    user.currentBicycleId = existingBicycle.id;
 
     fs.writeFileSync(dbFilePath, JSON.stringify(db, null, 2));
-    console.log(`bicycle ${existingBicycle.id} is now being used`);
-    res.json({ message: `Successfully locked bicycle ${existingBicycle.id}` })
+    res.json({ message: `Successfully ${lockBicycle ? 'locked' : 'unlocked'} bicycle ${userId}` });
 });
 
 app.post('/bicycles/addBicycle', (req, res) => {

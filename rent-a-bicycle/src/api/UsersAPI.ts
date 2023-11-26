@@ -14,7 +14,8 @@ const fetchUsers = async () => {
 interface UserDTO {
     id: number,
     name: string,
-    funds: number
+    funds: number,
+    currentBicycleId: number
 }
 
 const fetchUser = async (userId: string) => {
