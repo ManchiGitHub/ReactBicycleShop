@@ -9,25 +9,16 @@ export const Question = types.model("Question", {
     userAnswer: types.optional(types.string, '')
 })
     .views(self => {
-
         return {
             get isAnsweredCorrectly(): boolean {
                 return self.correctAnswer === self.userAnswer;
             },
-            get answersInRandomOrder() {
-                const allAnswers = [self.correctAnswer, ...self.wrongAnswers];
-                // Fisher-Yates shuffle
-                for (let i = allAnswers.length - 1; i > 0; i--) {
-                    const j = Math.floor(Math.random() * (i + 1));
-                    [allAnswers[i], allAnswers[j]] = [allAnswers[j], allAnswers[i]];
-                }
-
-                return allAnswers;
+            get allAnswers() {
+                return [self.correctAnswer, ...self.wrongAnswers];
             }
         }
     })
     .actions(self => {
-
         return {
             setAnswer(userAnswer: string) {
                 self.userAnswer = userAnswer;

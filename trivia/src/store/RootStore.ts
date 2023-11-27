@@ -5,7 +5,8 @@ import { Question } from "./Question";
 const RootStore = types.model("RootStore", {
     error: types.string,
     questions: types.array(Question),
-    currentIndex: types.optional(types.number, 0)
+    currentIndex: types.optional(types.number, 0),
+    difficultMode: types.boolean
 })
     .views(self => {
 
@@ -28,8 +29,8 @@ const RootStore = types.model("RootStore", {
     })
     .actions(self => {
 
-        const fetchAndApplyMathQuestions = async () => {
-            const mathTrivia = await triviaService.fetchMatchTrivia();
+        const fetchAndApplyMathQuestions = async (shuffleQuestions: boolean) => {
+            const mathTrivia = await triviaService.fetchMatchTrivia(shuffleQuestions);
             if (!mathTrivia) {
                 self.error = "Problem with getting questions";
             }
@@ -46,12 +47,12 @@ const RootStore = types.model("RootStore", {
         return {
             startTrivia: flow(function* () {
                 reset();
-                yield fetchAndApplyMathQuestions();
+                yield fetchAndApplyMathQuestions(self.difficultMode);
             }),
             nextQuestion: flow(function* () {
                 if ((self.questions.length - 1) == self.currentIndex) {
                     reset();
-                    yield fetchAndApplyMathQuestions();
+                    yield fetchAndApplyMathQuestions(self.difficultMode);
                 } else {
                     self.currentIndex += 1;
                 }

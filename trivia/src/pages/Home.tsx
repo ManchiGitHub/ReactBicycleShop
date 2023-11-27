@@ -9,15 +9,18 @@ export const Home = observer(() => {
     }
 
     return (
-        <div className="flex flex-col justify-center items-center h-screen">
-            <div className="text-center mb-4">
-                <p className="text-2xl">Press the button below to start the trivia</p>
+        <div className="p-16 flex flex-col items-center h-screen">
+            <div className="text-center mb-4 my-2">
+                <p className="text-sky-500 font-sriracha text-2xl">Press the button below to start the trivia</p>
             </div>
-            <button
-                onClick={startClickHandler}
-                className="w-1/3 max-w-sm bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
-                Start
-            </button>
+            <div className="flex justify-center w-full my-5 mt-auto">
+                <button
+                    onClick={startClickHandler}
+                    className="w-1/3 max-w-sm bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                    Start
+                </button>
+            </div>
+
         </div>
     );
 });

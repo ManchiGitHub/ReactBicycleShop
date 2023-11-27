@@ -36,7 +36,6 @@ const getRandomNegativeEncouragements = () =>{
     return negativeAnswerEncouragements[randomIndex];
 };
 
-
 export const MockEncouragements = {
     getRandomEncouragements, getRandomNegativeEncouragements
 }

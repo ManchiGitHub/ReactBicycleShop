@@ -10,7 +10,8 @@ const App = () => {
   const rootStore = useMemo(
     () => RootStore.create({
       error: 'asd',
-      questions: []
+      questions: [],
+      difficultMode: false
     }),
     []
   );
