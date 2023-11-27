@@ -6,14 +6,24 @@ export const Network = {
 }
 
  const encouragements: string[] = [
-    "Great, next question :)", 
-    "Wow, so easy",
-    "Great job!",
-    "Well done!",
-    "You're a pro!",
-    "Amazing, keep going!",
-    "So smart!",
-    "You're a genius!"
+    "Great, next question 🥳", 
+    "Wow, so easy 🤩",
+    "Great job! 😁",
+    "Well done! 😻",
+    "You're a pro! 👌",
+    "Amazing, keep going! 👍",
+    "So smart! 🥳",
+    "You're a genius! 🧑‍🎓"
+]
+
+const negativeAnswerEncouragements: string[] = [
+    "What? 🤦", 
+    "Stop, what are you doing? 🤦‍♀️",
+    "Almost.. ",
+    "Nope.. 🤦",
+    "Go back to study ",
+    "Keep trying, don't give up!",
+    "Ummm.. no "
 ]
 
 const getRandomEncouragements = () =>{
@@ -21,9 +31,12 @@ const getRandomEncouragements = () =>{
     return encouragements[randomIndex];
 };
 
-
+const getRandomNegativeEncouragements = () =>{
+    const randomIndex = Math.floor(Math.random() * negativeAnswerEncouragements.length);
+    return negativeAnswerEncouragements[randomIndex];
+};
 
 
 export const MockEncouragements = {
-    getRandomEncouragements
+    getRandomEncouragements, getRandomNegativeEncouragements
 }

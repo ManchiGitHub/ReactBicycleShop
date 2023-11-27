@@ -9,18 +9,25 @@ import { AnswerButton } from "../atoms/AnswerButton";
 
 export const TriviaQuestionPage = observer(() => {
 
-    const store = useRootStore();
+    const {
+        currentQuestion,
+        questions,
+        currentIndex,
+        currentScore,
+        nextQuestion,
+        startTrivia } = useRootStore();
+
     const [isLoading, setIsLoading] = useState(true);
     const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
 
     const handleAnswersClick = (answer: string) => {
-        store.currentQuestion?.setAnswer(answer);
+        currentQuestion?.setAnswer(answer);
         setSelectedAnswer(answer);
     }
 
     useEffect(() => {
         autorun(() => {
-            if (store.questions.length < 0) {
+            if (questions.length < 0) {
                 toast.warning("did not get some questions!");
             }
             setIsLoading(false);
@@ -28,29 +35,29 @@ export const TriviaQuestionPage = observer(() => {
     }, []);
 
     useEffect(() => {
-        if (store.currentQuestion?.isAnsweredCorrectly) {
-            const randomIndex = MockEncouragements.getRandomEncouragements();
-            toast.success(randomIndex);
-        } else {
-            if (store.currentQuestion?.userAnswer) {
-                toast.error("Nope, try again :)");
-            }
+
+        if (!currentQuestion || !currentQuestion.userAnswer) {
+            return;
         }
 
-        if (store.currentQuestion?.userAnswer) {
-            const timeoutId = setTimeout(() => {
-                setSelectedAnswer('');
-                store.nextQuestion();
-            }, 1000);
+        const toastMessage = currentQuestion.isAnsweredCorrectly
+            ? MockEncouragements.getRandomEncouragements()
+            : MockEncouragements.getRandomNegativeEncouragements();
 
-            return () => clearTimeout(timeoutId);
-        }
+        const toastFunction = currentQuestion.isAnsweredCorrectly ? toast.success : toast.error;
+        toastFunction(toastMessage);
+
+        // Set timeout for moving to the next question
+        const timeoutId = setTimeout(() => {
+            setSelectedAnswer('');
+            nextQuestion();
+        }, 1000);
 
     }, [selectedAnswer])
 
     useEffect(() => {
-        store.startTrivia();
-    }, [store.questions]);
+        startTrivia();
+    }, [questions]);
 
     return (
         <div >
@@ -77,24 +84,24 @@ export const TriviaQuestionPage = observer(() => {
                     <div className="flex-1 flex justify-center items-center bg-blue-100">
                         {/* Math question */}
                         <p className="text-3xl font-sriracha">
-                            {store.currentQuestion?.query}
+                            {currentQuestion?.query}
                         </p>
                     </div>
                     <div className="flex-1 flex flex-col justify-center items-center bg-blue-200">
                         {/* Info */}
-                        <p className="text-3xl font-sriracha">score: {store.currentScore}</p>
+                        <p className="text-3xl font-sriracha">score: {currentScore}</p>
                         <p className="text-lg font-sriracha">
-                            {store.currentIndex + 1} / {store.questions.length}
+                            {currentIndex + 1} / {questions.length}
                         </p>
                     </div>
                 </div>
                 <div className="flex flex-col items-center justify-center h-1/2 bg-blue-300"> {/* Container 3 */}
                     <div className="flex flex-wrap justify-center">
-                        {store.currentQuestion?.answersInRandomOrder.map((answer, index) => (
+                        {currentQuestion?.answersInRandomOrder.map((answer, index) => (
                             <AnswerButton
                                 key={index}
                                 answer={answer}
-                                isCorrect={store.currentQuestion!.isAnsweredCorrectly}
+                                isCorrect={currentQuestion!.isAnsweredCorrectly}
                                 isSelected={answer === selectedAnswer}
                                 handleAnswersClick={() => handleAnswersClick(answer)} />
                         ))}
