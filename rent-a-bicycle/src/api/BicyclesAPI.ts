@@ -92,8 +92,6 @@ const updateBicycleLights = async (bicycles: IBicycle[], lightsOn: Boolean) => {
     }
 };
 
-
-
 const bicycleService = {
     fetchBicycles,
     updateBicycleLights,
