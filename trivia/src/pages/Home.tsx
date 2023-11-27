@@ -1,10 +1,8 @@
 import { observer } from "mobx-react-lite";
 import { useNavigate } from "react-router-dom";
-import { useRootStore } from "../store/common/RootStoreConext";
 
 export const Home = observer(() => {
 
-    const store = useRootStore();
     const navigate = useNavigate();
     const startClickHandler = () => {
         navigate('./trivia');

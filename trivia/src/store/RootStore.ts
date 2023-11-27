@@ -1,4 +1,4 @@
-import { Instance, applySnapshot, flow, onSnapshot, types } from "mobx-state-tree";
+import { Instance, applySnapshot, flow, types } from "mobx-state-tree";
 import triviaService from "../api/TriviaService";
 import { Question } from "./Question";
 
@@ -20,7 +20,8 @@ const RootStore = types.model("RootStore", {
             },
             get currentScore() {
                 return self.questions.reduce((totalScore, question) => {
-                    return question.isAnsweredCorrectly ? (totalScore + QuestionScore) : totalScore;
+                    const scoreChange = question.isAnsweredCorrectly ? QuestionScore : (question.userAnswer ? -QuestionScore : 0);
+                    return Math.max(0, totalScore + scoreChange); // minimum score is 0
                 }, 0);
             },
         }

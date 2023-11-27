@@ -28,7 +28,7 @@ export const TriviaQuestionPage = observer(() => {
     useEffect(() => {
         autorun(() => {
             if (questions.length < 0) {
-                toast.warning("did not get some questions!");
+                toast.warning("did not get the questions!");
             }
             setIsLoading(false);
         })
@@ -52,6 +52,8 @@ export const TriviaQuestionPage = observer(() => {
             setSelectedAnswer('');
             nextQuestion();
         }, 1000);
+
+        return () => clearTimeout(timeoutId);
 
     }, [selectedAnswer])
 
@@ -82,20 +84,18 @@ export const TriviaQuestionPage = observer(() => {
             <div className="flex flex-col h-screen">
                 <div className="flex flex-row h-1/2">
                     <div className="flex-1 flex justify-center items-center bg-blue-100">
-                        {/* Math question */}
                         <p className="text-3xl font-sriracha">
                             {currentQuestion?.query}
                         </p>
                     </div>
                     <div className="flex-1 flex flex-col justify-center items-center bg-blue-200">
-                        {/* Info */}
                         <p className="text-3xl font-sriracha">score: {currentScore}</p>
                         <p className="text-lg font-sriracha">
                             {currentIndex + 1} / {questions.length}
                         </p>
                     </div>
                 </div>
-                <div className="flex flex-col items-center justify-center h-1/2 bg-blue-300"> {/* Container 3 */}
+                <div className="flex flex-col items-center justify-center h-1/2 bg-blue-300">
                     <div className="flex flex-wrap justify-center">
                         {currentQuestion?.answersInRandomOrder.map((answer, index) => (
                             <AnswerButton

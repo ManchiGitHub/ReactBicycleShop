@@ -9,14 +9,14 @@ export interface RenderButtonProps {
 
 export const AnswerButton: React.FC<RenderButtonProps> = observer(({ answer, isCorrect, isSelected, handleAnswersClick }) => {
 
-    let buttonClass = "font-sriracha m-3 text-2xl rounded-full w-12";
+    let buttonClass = "font-sriracha m-3 text-2xl rounded-full px-12 py-3";
 
     if (isSelected) {
         buttonClass += isCorrect ? ` bg-green-500` : ` bg-red-500`;
     } else {
         buttonClass += ` bg-primary`;
     }
-    console.log("isCorrect", isCorrect);
+
     return (
         <button
             data-te-ripple-init

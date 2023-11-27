@@ -1,5 +1,5 @@
 import { types } from "mobx-state-tree";
-import { Instance, string } from "mobx-state-tree/dist/internal";
+import { Instance } from "mobx-state-tree/dist/internal";
 
 export const Question = types.model("Question", {
     id: types.string,
@@ -23,14 +23,6 @@ export const Question = types.model("Question", {
                 }
 
                 return allAnswers;
-            },
-            get aksjh() {
-                if (self.userAnswer)
-                if (self.wrongAnswers.includes(self.userAnswer)) {
-                    return 'bg-red-500';
-                } else if (self.userAnswer === self.correctAnswer) {
-                    return 'bg-green-500';
-                }
             }
         }
     })

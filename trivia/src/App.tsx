@@ -1,12 +1,9 @@
-import { useMemo, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useMemo } from 'react'
 import './App.css'
 import { RootStore } from './store/RootStore'
 import { RootStoreProvider } from './store/common/RootStoreConext'
 import { ContentContainer } from './components/ContentContainer'
 import { Outlet } from 'react-router-dom'
-import { onSnapshot } from 'mobx-state-tree'
 
 const App = () => {
 
@@ -17,8 +14,6 @@ const App = () => {
     }),
     []
   );
-
-  const [count, setCount] = useState(0)
 
   return (
     <RootStoreProvider value={rootStore}>

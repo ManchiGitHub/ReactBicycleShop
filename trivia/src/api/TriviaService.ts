@@ -1,39 +1,5 @@
+import { MathQuestionDTO, TriviaResponse } from "../models/Models";
 import { Network } from "./APIUtils";
-
-interface TriviaResponse {
-    chapter: string,
-    trainingSet: TrainingSet[]
-};
-
-interface TrainingSet {
-    _id: string,
-    title: string,
-    matchSet: MatchSet[],
-    displaySet: DisplaySet[],
-    negativeSet: NegativeSet[]
-};
-
-interface MatchSet {
-    _id: string,
-    text: string
-};
-
-interface DisplaySet {
-    _id: string,
-    text: string
-};
-
-interface NegativeSet {
-    _id: string,
-    text: string
-};
-
-export interface MathQuestionDTO {
-    id: string
-    query: string,
-    correctAnswer: string,
-    wrongAnswers: string[]
-};
 
 const fetchMatchTrivia = async () => {
     try {
